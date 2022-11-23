@@ -18,6 +18,7 @@ const RegisterForm = () => {
   const { auth } = useContext(AuthContext);
 
   //auth providers
+
   const googleProvider = new GoogleAuthProvider();
 
   const navigate = useNavigate();
