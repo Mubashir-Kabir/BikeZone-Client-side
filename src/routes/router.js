@@ -13,6 +13,7 @@ import MyOrders from "../pages/dashboard/MyOrders";
 import MyProducts from "../pages/dashboard/MyProducts";
 import AllSellers from "../pages/dashboard/AllSellers";
 import AllBuyers from "../pages/dashboard/AllBuyers";
+import Products from "../pages/Products";
 
 const router = createBrowserRouter([
   {
@@ -45,14 +46,14 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: <Dashboard></Dashboard>,
       },
-      //   {
-      //     path: "services/:id",
-      //     loader: ({ params }) =>
-      //       fetch(
-      //         `https://koni-s-kitchen-server-side.vercel.app/services/${params.id}`
-      //       ),
-      //     element: <ServiceDetails></ServiceDetails>,
-      //   },
+      {
+        path: "category/:id",
+        // loader: ({ params }) =>
+        //   fetch(
+        //     `https://koni-s-kitchen-server-side.vercel.app/services/${params.id}`
+        //   ),
+        element: <Products></Products>,
+      },
     ],
   },
   {
