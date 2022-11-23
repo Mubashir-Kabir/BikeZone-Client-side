@@ -1,23 +1,24 @@
 import { toast } from "react-toastify";
 
-// export const requestJwtToken = (mail) => {
-//   const email = {
-//     email: mail,
-//   };
-//   fetch("https://koni-s-kitchen-server-side.vercel.app/jwt-token", {
-//     method: "POST",
-//     headers: {
-//       "content-type": "application/json",
-//     },
-//     body: JSON.stringify(email),
-//   }).then((res) =>
-//     res.json().then((data) => {
-//       if (data.status) {
-//         localStorage.setItem("accessToken", data.data);
-//       }
-//     })
-//   );
-// };
+export const requestJwtToken = (mail) => {
+  // const email = {
+  //   email: mail,
+  // };
+  // fetch("https://koni-s-kitchen-server-side.vercel.app/jwt-token", {
+  //   method: "POST",
+  //   headers: {
+  //     "content-type": "application/json",
+  //   },
+  //   body: JSON.stringify(email),
+  // }).then((res) =>
+  //   res.json().then((data) => {
+  //     if (data.status) {
+  //       localStorage.setItem("accessToken", data.data);
+  //     }
+  //   })
+  // );
+  return;
+};
 
 export const notifySuccess = (massage) => {
   toast.success(massage, {
