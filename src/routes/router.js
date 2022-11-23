@@ -1,18 +1,21 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "../layout/Root";
 import Home from "../pages/Home";
-import AddProducts from "../pages/AddProduct";
+import AddProduct from "../pages/AddProduct";
 import PrivateRoute from "../layout/PrivateRoute";
 import Dashboard from "../pages/Dashboard";
 import Blog from "../pages/Blog";
 import LogIn from "../pages/LogIn";
 import Register from "../pages/Register";
+import Error from "../pages/Error";
+import DashboardLayout from "../layout/DashboardLayout";
+import MyOrders from "../pages/dashboard/MyOrders";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
-    // errorElement: <Error></Error>,
+    errorElement: <Error></Error>,
     children: [
       {
         path: "/",
@@ -21,18 +24,6 @@ const router = createBrowserRouter([
       {
         path: "home",
         element: <Home></Home>,
-      },
-      {
-        path: "add-products",
-        element: <AddProducts></AddProducts>,
-      },
-      {
-        path: "dashboard",
-        element: (
-          <PrivateRoute>
-            <Dashboard></Dashboard>
-          </PrivateRoute>
-        ),
       },
 
       {
@@ -55,6 +46,28 @@ const router = createBrowserRouter([
       //       ),
       //     element: <ServiceDetails></ServiceDetails>,
       //   },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "/dashboard",
+        element: <Dashboard></Dashboard>,
+      },
+      {
+        path: "add-product",
+        element: <AddProduct></AddProduct>,
+      },
+      {
+        path: "my-orders",
+        element: <MyOrders></MyOrders>,
+      },
     ],
   },
 ]);

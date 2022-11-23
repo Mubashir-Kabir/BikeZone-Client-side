@@ -33,7 +33,7 @@ const Navbar = () => {
           >
             {/* <img className="w-16" src={logo} alt="" /> */}
             <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-              Koni's Kitchen
+              Bike Zone
             </span>
           </NavLink>
         </div>
@@ -87,7 +87,7 @@ const Navbar = () => {
           </ul>
         </div>
         {user?.uid ? (
-          <div className="flex gap-2 ml-8">
+          <div className="flex gap-2 ">
             <button
               onClick={logOut}
               className="hover:text-cyan-400 text-lg mr-3   hidden md:block"
@@ -105,7 +105,7 @@ const Navbar = () => {
             </div>
           </div>
         ) : (
-          <ul className=" items-center hidden space-x-8 ml-10 lg:flex">
+          <ul className=" items-center hidden space-x-8  lg:flex">
             <li>
               <Link
                 to="/log-in"
