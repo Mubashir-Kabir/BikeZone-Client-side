@@ -10,6 +10,9 @@ import Register from "../pages/Register";
 import Error from "../pages/Error";
 import DashboardLayout from "../layout/DashboardLayout";
 import MyOrders from "../pages/dashboard/MyOrders";
+import MyProducts from "../pages/dashboard/MyProducts";
+import AllSellers from "../pages/dashboard/AllSellers";
+import AllBuyers from "../pages/dashboard/AllBuyers";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +41,10 @@ const router = createBrowserRouter([
         path: "register",
         element: <Register></Register>,
       },
+      {
+        path: "/dashboard",
+        element: <Dashboard></Dashboard>,
+      },
       //   {
       //     path: "services/:id",
       //     loader: ({ params }) =>
@@ -57,12 +64,20 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "/dashboard",
-        element: <Dashboard></Dashboard>,
-      },
-      {
         path: "add-product",
         element: <AddProduct></AddProduct>,
+      },
+      {
+        path: "my-products",
+        element: <MyProducts></MyProducts>,
+      },
+      {
+        path: "all-sellers",
+        element: <AllSellers></AllSellers>,
+      },
+      {
+        path: "All-buyers",
+        element: <AllBuyers></AllBuyers>,
       },
       {
         path: "my-orders",

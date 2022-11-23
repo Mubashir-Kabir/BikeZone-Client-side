@@ -43,21 +43,10 @@ const DashboardNav = () => {
                 My Products
               </NavLink>
             </li>
+
             <li className="flex">
               <NavLink
-                to="my-buyers"
-                className={({ isActive }) =>
-                  isActive
-                    ? "font-medium tracking-wide text-cyan-400"
-                    : "font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-cyan-400"
-                }
-              >
-                My Buyers
-              </NavLink>
-            </li>
-            <li className="flex">
-              <NavLink
-                to=" all sellers"
+                to="all-sellers"
                 className={({ isActive }) =>
                   isActive
                     ? "font-medium tracking-wide text-cyan-400"
