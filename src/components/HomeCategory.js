@@ -1,31 +1,28 @@
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import HomeCard from "./HomeCard";
 
 const HomeCategory = () => {
-  const categories = [
-    {
-      id: 1,
-      name: "Standard",
-      img: "https://di-uploads-pod30.dealerinspire.com/ridenow/uploads/2021/02/2020-Yamaha-MT-07.jpg",
-      info: "this is the category of standard bikes. you can find your dream bike",
-    },
-    {
-      id: 2,
-      name: "Electric",
-      img: "https://di-uploads-pod30.dealerinspire.com/ridenow/uploads/2021/02/2020-Yamaha-MT-07.jpg",
-      info: "this is the category of standard bikes. you can find your dream bike",
-    },
-    {
-      id: 3,
-      name: "Scooty",
-      img: "https://di-uploads-pod30.dealerinspire.com/ridenow/uploads/2021/02/2020-Yamaha-MT-07.jpg",
-      info: "this is the category of standard bikes. you can find your dream bike",
-    },
-  ];
+  const { data, isLoading } = useQuery({
+    queryKey: ["categories"],
+    queryFn: () =>
+      fetch("http://localhost:5001/categories").then((res) => res.json()),
+  });
+  let categories = [];
+  if (!isLoading) {
+    if (data.status) {
+      categories = data.data;
+    }
+  }
+
+  if (isLoading) {
+    return <p>loading...</p>;
+  }
+
   return (
     <div className="grid gap-6 row-gap-5 mb-8 lg:grid-cols-3  sm:row-gap-6 grid-cols-1 lg:mx-40">
-      {categories.map((category) => (
-        <HomeCard key={category.id} category={category}></HomeCard>
+      {categories?.map((category) => (
+        <HomeCard key={category._id} category={category}></HomeCard>
       ))}
     </div>
   );

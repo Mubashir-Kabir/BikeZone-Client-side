@@ -1,12 +1,9 @@
 import React, { useContext, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 import { AuthContext } from "../context/UserContext";
-import {
-  notifyError,
-  notifySuccess,
-  requestJwtToken,
-} from "../utilities/sharedFunctions";
+import { notifyError, notifySuccess } from "../utilities/sharedFunctions";
 
 const AddProductForm = () => {
   const { user } = useContext(AuthContext);
@@ -15,8 +12,24 @@ const AddProductForm = () => {
 
   //states for user name,photo url, email,password and error
   const [err, setErr] = useState("");
+  const [wait, setWait] = useState(false);
 
   //------------------
+  const [img, setImg] = useState("");
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["categories"],
+    queryFn: () =>
+      fetch(`${process.env.REACT_APP_serverUrl}/categories`).then((res) =>
+        res.json()
+      ),
+  });
+  let categories = [];
+  if (!isLoading) {
+    if (data.status) {
+      categories = data.data;
+    }
+  }
 
   const [info, setInfo] = useState("");
   const handleTextArea = (e) => {
@@ -28,9 +41,76 @@ const AddProductForm = () => {
     setErr("");
     setInfo(e.target.value);
   };
-  const handlePost = () => {
-    const product = {};
-    console.log(product);
+
+  const handleImg = (e) => {
+    setWait(true);
+    const tempImg = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", tempImg);
+    //--------
+    const imgbbUrl = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_imgbbKey}`;
+
+    fetch(imgbbUrl, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setImg(data.data.url);
+        setWait(false);
+      });
+  };
+  const notifyHandle = (data) => {
+    if (data.status) {
+      notifySuccess("successfully posted ");
+      navigate("../my-products");
+    } else {
+      notifyError("Something went wrong");
+    }
+  };
+
+  const handlePost = (e) => {
+    e.preventDefault();
+    const title = e.target.name.value;
+    const price = {
+      original: e.target.originalPrice.value,
+      resale: e.target.resalePrice.value,
+    };
+    const number = e.target.number.value;
+    const location = e.target.location.value;
+    const info = e.target.info.value;
+    const purchaseYear = e.target.purchaseYear.value;
+    const isSold = false;
+    const current = new Date();
+    const postTime = current.toISOString();
+    const seller = user?.email;
+    const category = e.target.category.value;
+    const condition = e.target.condition.value;
+
+    const product = {
+      title,
+      price,
+      number,
+      location,
+      info,
+      purchaseYear,
+      isSold,
+      postTime,
+      seller,
+      category,
+      condition,
+      img,
+    };
+    e.target.reset();
+    fetch(`${process.env.REACT_APP_serverUrl}/products`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(product),
+    })
+      .then((res) => res.json())
+      .then((data) => notifyHandle(data));
   };
 
   return (
@@ -40,7 +120,6 @@ const AddProductForm = () => {
 
         <h1 className="text-2xl font-bold text-center">Add Bike for sale</h1>
 
-        {/* form for email and password based sign up */}
         <form
           onSubmit={handlePost}
           noValidate=""
@@ -57,11 +136,28 @@ const AddProductForm = () => {
               className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
             />
           </div>
+          <select
+            name="category"
+            id="category"
+            className="select select-bordered w-full rounded-md"
+          >
+            <option disabled selected>
+              Select a Category
+            </option>
+            {!isLoading &&
+              categories.map((category) => (
+                <option key={category._id} value={category._id}>
+                  {category.name}
+                </option>
+              ))}
+          </select>
           <div className="">
             <textarea
               required
               onChange={handleTextArea}
               rows="3"
+              name="info"
+              id="info"
               //   cols="50"
               placeholder="Bike details..."
               className="p-4 w-full rounded-md resize-none text-gray-800 "
@@ -72,8 +168,8 @@ const AddProductForm = () => {
               <input
                 required
                 type="text"
-                name="original price"
-                id="original price"
+                name="originalPrice"
+                id="originalPrice"
                 placeholder="Original Price"
                 className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
               />
@@ -82,43 +178,46 @@ const AddProductForm = () => {
               <input
                 required
                 type="text"
-                name="resale price"
-                id="resale price"
+                name="resalePrice"
+                id="resalePrice"
                 placeholder="Resale Price"
                 className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
               />
             </div>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+            <select
+              name="condition"
+              id="condition"
+              className="select select-bordered w-full rounded-md"
+            >
+              <option disabled selected>
+                Condition
+              </option>
+              <option value="Excellent">Excellent</option>
+              <option value="Good">Good</option>
+              <option value="Fair">Fair</option>
+            </select>
             <div className="space-y-1 text-sm">
               <input
                 required
                 type="text"
-                name="original price"
-                id="original price"
-                placeholder="Condition"
-                className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
-              />
-            </div>
-            <div className="space-y-1 text-sm">
-              <input
-                required
-                type="text"
-                name="purchase year"
-                id="purchase year"
+                name="purchaseYear"
+                id="purchaseYear"
                 placeholder="purchase Year"
                 className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
               />
             </div>
           </div>
           <div className="space-y-1 text-sm">
+            <p className="text-md font-semibold">Picture of your Bike</p>
             <input
+              onChange={handleImg}
               required
-              type="url"
-              name="photoURL"
-              id="photoURL"
-              placeholder="link of your picture "
-              className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
+              type="file"
+              name="img"
+              id="img"
+              accept="image/*"
             />
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
@@ -136,20 +235,26 @@ const AddProductForm = () => {
               <input
                 required
                 type="text"
-                name="phone number"
-                id="phone number"
+                name="number"
+                id="number"
                 placeholder="Phone Number"
                 className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
               />
             </div>
           </div>
 
-          <button
-            type="submit"
-            className="block w-full p-3 text-center rounded-md text-gray-50 bg-cyan-400 hover:bg-cyan-600"
-          >
-            Post
-          </button>
+          <div className="block w-full  text-center rounded-md text-gray-50 bg-gray-600">
+            {wait ? (
+              <p className="p-3">Wait..</p>
+            ) : (
+              <button
+                className="block w-full p-3 text-center rounded-md text-gray-50 bg-cyan-400 hover:bg-cyan-600"
+                type="submit"
+              >
+                Post
+              </button>
+            )}
+          </div>
         </form>
       </div>
     </div>

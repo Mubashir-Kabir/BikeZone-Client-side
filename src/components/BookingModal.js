@@ -60,33 +60,38 @@ const BookingModal = ({ item }) => {
               />
             </div>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-            <div className="space-y-1 text-sm">
-              <input
-                type="text"
-                name="number"
-                id="number"
-                placeholder="Phone Number"
-                className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
-              />
+          <form action="">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+              <div className="space-y-1 text-sm">
+                <input
+                  required
+                  type="text"
+                  name="number"
+                  id="number"
+                  placeholder="Phone Number"
+                  className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
+                />
+              </div>
+              <div className="space-y-1 text-sm">
+                <input
+                  required
+                  type="text"
+                  name="location"
+                  id="location"
+                  placeholder="Meeting Location"
+                  className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
+                />
+              </div>
             </div>
-            <div className="space-y-1 text-sm">
-              <input
-                type="text"
-                name="location"
-                id="location"
-                placeholder="Meeting Location"
-                className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
-              />
+            <div className="modal-action">
+              <label htmlFor="booking-modal" className="btn btn-primary">
+                Cancel
+              </label>
+              <button type="submit" className="btn btn-primary">
+                Submit
+              </button>
             </div>
-          </div>
-
-          <div className="modal-action">
-            <label htmlFor="booking-modal" className="btn btn-primary">
-              Cancel
-            </label>
-            <button className="btn btn-primary">Submit</button>
-          </div>
+          </form>
         </div>
       </div>
     </div>

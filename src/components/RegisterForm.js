@@ -29,10 +29,11 @@ const RegisterForm = () => {
 
   //states for user name,photo url, email,password and error
   const [name, setName] = useState("");
-  const [url, setUrl] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
+  const [wait, setWait] = useState(false);
+  const [img, setImg] = useState("");
 
   //validate name. name cant't be empty
   const nameValidation = (e) => {
@@ -46,23 +47,6 @@ const RegisterForm = () => {
     }
     setErr("");
     setName(e.target.value);
-  };
-
-  //photo url validation
-  const urlValidation = (e) => {
-    if (e.target.value === "") {
-      return;
-    }
-    if (
-      !/^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test(
-        e.target.value
-      )
-    ) {
-      setErr("Invalid URL please try another");
-      return;
-    }
-    setErr("");
-    setUrl(e.target.value);
   };
 
   //email validation
@@ -93,6 +77,24 @@ const RegisterForm = () => {
     setErr("");
     setPassword(e.target.value);
   };
+  const handleImg = (e) => {
+    setWait(true);
+    const tempImg = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", tempImg);
+    //--------
+    const imgbbUrl = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_imgbbKey}`;
+
+    fetch(imgbbUrl, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setImg(data.data.url);
+        setWait(false);
+      });
+  };
 
   //email and password based sign up handle
   const signUpWithEmailPass = (event) => {
@@ -109,14 +111,42 @@ const RegisterForm = () => {
       setErr("Please set a password");
       return;
     }
+    const notifyHandle = (data) => {
+      if (data.status) {
+        notifySuccess("successfully Registered ");
+      } else {
+        notifyError("Something went wrong");
+      }
+    };
+
+    const createUserDb = (user) => {
+      fetch(`${process.env.REACT_APP_serverUrl}/users`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(user),
+      })
+        .then((res) => res.json())
+        .then((data) => notifyHandle(data));
+    };
+
     createUserWithEmailAndPassword(auth, email, password)
       .then((result) => {
         setErr("");
-        notifySuccess("Successfully Registered");
+        const role = event.target.accountType.value;
+        const user = {
+          name,
+          img,
+          role,
+          verified: false,
+        };
+        createUserDb(user);
+
         requestJwtToken(result.user.email);
         updateProfile(result.user, {
           displayName: name,
-          photoURL: url,
+          photoURL: img,
         })
           .then(() => {
             navigate(from, { replace: true });
@@ -141,6 +171,13 @@ const RegisterForm = () => {
   const signUpWithGmail = () => {
     signInWithPopup(auth, googleProvider)
       .then((result) => {
+        // const user={
+        //   name:result.user.displayName,
+        //   img:result.user.imageURL,
+        //   role:"Buyer",
+        //   verified:false
+        // }
+        console.log(result.user);
         notifySuccess("log-in Successful");
         requestJwtToken(result.user.email);
         navigate(from, { replace: true });
@@ -161,8 +198,7 @@ const RegisterForm = () => {
 
         {/* form for email and password based sign up */}
         <form
-          noValidate=""
-          action=""
+          onSubmit={signUpWithEmailPass}
           className="space-y-6 ng-untouched ng-pristine ng-valid"
         >
           <div className="space-y-1 text-sm">
@@ -176,16 +212,28 @@ const RegisterForm = () => {
               className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
             />
           </div>
-          <div className="space-y-1 text-sm">
+          <div className="space-y-1 text-sm text-left">
+            <p>Upload your picture</p>
             <input
-              onChange={urlValidation}
-              type="url"
-              name="photoURL"
-              id="photoURL"
-              placeholder="link of your picture "
-              className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
+              onChange={handleImg}
+              required
+              type="file"
+              name="img"
+              id="img"
+              accept="image/*"
             />
           </div>
+          <select
+            name="accountType"
+            id="accountType"
+            className="select select-bordered w-full rounded-md"
+          >
+            <option disabled selected>
+              Select Account Type
+            </option>
+            <option value="Seller">Seller</option>
+            <option value="Buyer">Buyer</option>
+          </select>
           <div className="space-y-1 text-sm">
             <input
               required
@@ -208,12 +256,16 @@ const RegisterForm = () => {
               className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
             />
           </div>
-          <button
-            onClick={signUpWithEmailPass}
-            className="block w-full p-3 text-center rounded-md text-gray-50 bg-cyan-400 hover:bg-cyan-600"
-          >
-            Register
-          </button>
+          {wait ? (
+            <></>
+          ) : (
+            <button
+              type="submit"
+              className="block w-full p-3 text-center rounded-md text-gray-50 bg-cyan-400 hover:bg-cyan-600"
+            >
+              Register
+            </button>
+          )}
         </form>
 
         <div className="flex items-center pt-4 space-x-1">

@@ -14,10 +14,10 @@ const ProductCard = ({ item }) => {
     location,
     info, //------------
     purchaseYear,
-    sold,
+    isSold,
     postTime,
   } = item;
-  if (sold) {
+  if (isSold) {
     return <></>;
   }
   return (
