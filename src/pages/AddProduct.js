@@ -1,9 +1,10 @@
 import React from "react";
+import AddProductForm from "../components/AddProductForm";
 
 const AddProduct = () => {
   return (
     <div>
-      <h1>this is add product</h1>
+      <AddProductForm></AddProductForm>
     </div>
   );
 };
