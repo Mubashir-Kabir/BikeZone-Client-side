@@ -13,9 +13,9 @@ const AddProductForm = () => {
   //states for user name,photo url, email,password and error
   const [err, setErr] = useState("");
   const [wait, setWait] = useState(false);
+  const [img, setImg] = useState("");
 
   //------------------
-  const [img, setImg] = useState("");
 
   const { data, isLoading } = useQuery({
     queryKey: ["categories"],

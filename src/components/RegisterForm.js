@@ -95,6 +95,24 @@ const RegisterForm = () => {
         setWait(false);
       });
   };
+  const notifyHandle = (data) => {
+    if (data.status) {
+      notifySuccess("successfully Registered ");
+    } else {
+      notifyError("Something went wrong");
+    }
+  };
+  const createUserDb = (user, umail) => {
+    fetch(`${process.env.REACT_APP_serverUrl}/users?email=${umail}`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => notifyHandle(data));
+  };
 
   //email and password based sign up handle
   const signUpWithEmailPass = (event) => {
@@ -111,25 +129,6 @@ const RegisterForm = () => {
       setErr("Please set a password");
       return;
     }
-    const notifyHandle = (data) => {
-      if (data.status) {
-        notifySuccess("successfully Registered ");
-      } else {
-        notifyError("Something went wrong");
-      }
-    };
-
-    const createUserDb = (user) => {
-      fetch(`${process.env.REACT_APP_serverUrl}/users`, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(user),
-      })
-        .then((res) => res.json())
-        .then((data) => notifyHandle(data));
-    };
 
     createUserWithEmailAndPassword(auth, email, password)
       .then((result) => {
@@ -139,9 +138,10 @@ const RegisterForm = () => {
           name,
           img,
           role,
+          email,
           verified: false,
         };
-        createUserDb(user);
+        createUserDb(user, email);
 
         requestJwtToken(result.user.email);
         updateProfile(result.user, {
@@ -171,12 +171,16 @@ const RegisterForm = () => {
   const signUpWithGmail = () => {
     signInWithPopup(auth, googleProvider)
       .then((result) => {
-        // const user={
-        //   name:result.user.displayName,
-        //   img:result.user.imageURL,
-        //   role:"Buyer",
-        //   verified:false
-        // }
+        const umail = result.user.email;
+        const user = {
+          name: result.user.displayName,
+          img: result.user.photoURL,
+          email: result.user.email,
+          role: "Buyer",
+          verified: false,
+        };
+        createUserDb(user, umail);
+
         console.log(result.user);
         notifySuccess("log-in Successful");
         requestJwtToken(result.user.email);

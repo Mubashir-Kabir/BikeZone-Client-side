@@ -34,6 +34,24 @@ const LoginForm = () => {
   const emailHandle = (e) => {
     setEmail(e.target.value);
   };
+  const notifyHandle = (data) => {
+    if (data.status) {
+      notifySuccess("successfully Registered ");
+    } else {
+      notifyError("Something went wrong");
+    }
+  };
+  const createUserDb = (user, umail) => {
+    fetch(`${process.env.REACT_APP_serverUrl}/users?email=${umail}`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => notifyHandle(data));
+  };
 
   //log in with email and password handle
   const passLogIn = (event) => {
@@ -63,6 +81,15 @@ const LoginForm = () => {
   const signUpWithGmail = () => {
     signInWithPopup(auth, googleProvider)
       .then((result) => {
+        const umail = result.user.email;
+        const user = {
+          name: result.user.displayName,
+          img: result.user.photoURL,
+          email: result.user.email,
+          role: "Buyer",
+          verified: false,
+        };
+        createUserDb(user, umail);
         notifySuccess("Log-in Successful");
         requestJwtToken(result.user.email);
         navigate(from, { replace: true });
