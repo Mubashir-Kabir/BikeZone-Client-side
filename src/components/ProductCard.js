@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../context/UserContext";
+import BookingModal from "./BookingModal";
 
 const ProductCard = ({ item }) => {
   const { user } = useContext(AuthContext);
@@ -52,7 +53,7 @@ const ProductCard = ({ item }) => {
           </div>
         </div>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">Book</button>
+          <BookingModal item={item}></BookingModal>
         </div>
       </div>
     </div>
