@@ -6,9 +6,11 @@ const AllSellers = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["sellers"],
     queryFn: () =>
-      fetch(`${process.env.REACT_APP_serverUrl}/allusers?role=Seller`).then(
-        (res) => res.json()
-      ),
+      fetch(`${process.env.REACT_APP_serverUrl}/allusers?role=Seller`, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }).then((res) => res.json()),
   });
   let sellers = [];
   if (!isLoading) {

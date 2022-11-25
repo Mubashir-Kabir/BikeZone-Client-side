@@ -16,6 +16,7 @@ import AllBuyers from "../pages/dashboard/AllBuyers";
 import Products from "../pages/Products";
 import Payment from "../pages/Payment";
 import AdminRoute from "../layout/AdminRoute";
+import SellerRoute from "../layout/SellerRoute";
 
 const router = createBrowserRouter([
   {
@@ -46,14 +47,20 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <Dashboard></Dashboard>,
+        element: (
+          <PrivateRoute>
+            <Dashboard></Dashboard>
+          </PrivateRoute>
+        ),
       },
       {
         path: "category/:id",
         loader: ({ params }) =>
-          fetch(
-            `${process.env.REACT_APP_serverUrl}/products?category=${params.id}`
-          ),
+          fetch(`${process.env.REACT_APP_serverUrl}/category/${params.id}`, {
+            headers: {
+              authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }),
         element: (
           <PrivateRoute>
             <Products></Products>
@@ -72,11 +79,19 @@ const router = createBrowserRouter([
     children: [
       {
         path: "add-product",
-        element: <AddProduct></AddProduct>,
+        element: (
+          <SellerRoute>
+            <AddProduct></AddProduct>
+          </SellerRoute>
+        ),
       },
       {
         path: "my-products",
-        element: <MyProducts></MyProducts>,
+        element: (
+          <SellerRoute>
+            <MyProducts></MyProducts>
+          </SellerRoute>
+        ),
       },
       {
         path: "all-sellers",
