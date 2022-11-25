@@ -1,6 +1,24 @@
 import React from "react";
+import { notifyError, notifySuccess } from "../utilities/sharedFunctions";
 
 const SellersTableRow = ({ seller }) => {
+  const handleVerify = () => {
+    const permission = window.confirm(
+      "Are you sure you want to Verify the user?"
+    );
+    if (permission) {
+      fetch(`${process.env.REACT_APP_serverUrl}/userverify/${seller?._id}`, {
+        method: "PUT",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status) {
+            return notifySuccess("Verified Successfully");
+          }
+          return notifyError("Something went wrong please try again");
+        });
+    }
+  };
   return (
     <tr>
       <td>
@@ -18,7 +36,9 @@ const SellersTableRow = ({ seller }) => {
             Verified
           </button>
         ) : (
-          <button className="btn btn-ghost btn-xs">Verify</button>
+          <button onClick={handleVerify} className="btn btn-ghost btn-xs">
+            Verify
+          </button>
         )}
         <button className="btn btn-ghost btn-xs">Delete</button>
       </th>
