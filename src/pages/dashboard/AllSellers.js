@@ -39,15 +39,6 @@ const AllSellers = () => {
             <SellersTableRow key={seller._id} seller={seller}></SellersTableRow>
           ))}
         </tbody>
-        {/* <!-- foot --> */}
-        <tfoot>
-          <tr>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th></th>
-          </tr>
-        </tfoot>
       </table>
     </div>
   );

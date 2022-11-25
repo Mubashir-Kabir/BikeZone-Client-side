@@ -14,6 +14,7 @@ import MyProducts from "../pages/dashboard/MyProducts";
 import AllSellers from "../pages/dashboard/AllSellers";
 import AllBuyers from "../pages/dashboard/AllBuyers";
 import Products from "../pages/Products";
+import Payment from "../pages/Payment";
 
 const router = createBrowserRouter([
   {
@@ -83,6 +84,12 @@ const router = createBrowserRouter([
       {
         path: "my-orders",
         element: <MyOrders></MyOrders>,
+      },
+      {
+        path: "payment/:id",
+        loader: ({ params }) =>
+          fetch(`${process.env.REACT_APP_serverUrl}/product?id=${params.id}`),
+        element: <Payment></Payment>,
       },
     ],
   },

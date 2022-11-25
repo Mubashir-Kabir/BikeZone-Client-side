@@ -27,17 +27,11 @@ const BuyerTableRow = ({ buyer }) => {
         </div>
       </td>
       <td>{buyer?.name}</td>
-      <td>{buyer?.email} tk</td>
+      <td>{buyer?.email} </td>
       <th>
-        {buyer?.verified ? (
-          <button disabled className="btn btn-ghost btn-xs">
-            Verified
-          </button>
-        ) : (
-          <button onClick={handleDelete} className="btn btn-ghost btn-xs">
-            Delete
-          </button>
-        )}
+        <button onClick={handleDelete} className="btn btn-error btn-xs">
+          Delete
+        </button>
       </th>
     </tr>
   );

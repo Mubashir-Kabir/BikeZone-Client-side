@@ -44,18 +44,18 @@ const SellersTableRow = ({ seller }) => {
         </div>
       </td>
       <td>{seller?.name}</td>
-      <td>{seller?.email} tk</td>
+      <td>{seller?.email} </td>
       <th>
         {seller?.verified ? (
           <button disabled className="btn btn-ghost btn-xs">
             Verified
           </button>
         ) : (
-          <button onClick={handleVerify} className="btn btn-ghost btn-xs">
+          <button onClick={handleVerify} className="btn btn-info mr-2 btn-xs">
             Verify
           </button>
         )}
-        <button onClick={handleDelete} className="btn btn-ghost btn-xs">
+        <button onClick={handleDelete} className="btn btn-error btn-xs">
           Delete
         </button>
       </th>

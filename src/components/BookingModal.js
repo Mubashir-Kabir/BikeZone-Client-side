@@ -70,7 +70,7 @@ const BookingModal = ({ item }) => {
                   name="name"
                   id="name"
                   placeholder="Full Name"
-                  className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
+                  className="w-full px-4 py-3 rounded-md border-gray-300   focus:border-yellow-300"
                 />
               </div>
               <div className="space-y-1 text-sm">
@@ -81,7 +81,7 @@ const BookingModal = ({ item }) => {
                   name="email"
                   id="email"
                   placeholder="Email"
-                  className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
+                  className="w-full px-4 py-3 rounded-md border-gray-300   focus:border-yellow-300"
                 />
               </div>
             </div>
@@ -94,7 +94,7 @@ const BookingModal = ({ item }) => {
                   name="number"
                   id="number"
                   placeholder="Phone Number"
-                  className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
+                  className="w-full px-4 py-3 rounded-md border-gray-300   focus:border-yellow-300"
                 />
               </div>
               <div className="space-y-1 text-sm">
@@ -104,12 +104,12 @@ const BookingModal = ({ item }) => {
                   name="location"
                   id="location"
                   placeholder="Meeting Location"
-                  className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
+                  className="w-full px-4 py-3 rounded-md border-gray-300   focus:border-yellow-300"
                 />
               </div>
             </div>
             <div className="modal-action">
-              <label htmlFor="booking-modal" className="btn btn-primary">
+              <label htmlFor="booking-modal" className="btn btn-error">
                 Cancel
               </label>
               <button type="submit" className="btn btn-primary">

@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 const ProductCard = ({ item }) => {
   const {
     title,
-    image,
+    img,
     price,
     condition,
     seller,
@@ -37,19 +37,36 @@ const ProductCard = ({ item }) => {
   return (
     <div className="card lg:card-side bg-base-100 shadow-xl">
       <figure>
-        <img src={image} alt="Album" />
+        <img src={img} alt="Album" />
       </figure>
       <div className="card-body">
         <h2 className="text-center text-3xl font-semibold">{title}</h2>
         <p className="text-left mb-3">{info}</p>
         <div className="flex flex-wrap gap-4 text-left">
-          <p>Original Price:${price.original}</p>
-          <p>Resale Price:${price.resale}</p>
-          <p>Condition: {condition}</p>
-          <p>Location: {location}</p>
-          <p>Purchase: {purchaseYear}</p>
+          <p>
+            <span className="font-bold text-white text-md">
+              Original Price:
+            </span>{" "}
+            ${price.original}
+          </p>
+          <p>
+            <span className="font-bold text-white text-md">Resale Price: </span>
+            ${price.resale}
+          </p>
+          <p>
+            <span className="font-bold text-white text-md">Condition: </span>{" "}
+            {condition}
+          </p>
+          <p>
+            <span className="font-bold text-white text-md">Location: </span>{" "}
+            {location}
+          </p>
+          <p>
+            <span className="font-bold text-white text-md">Purchase: </span>{" "}
+            {purchaseYear}
+          </p>
         </div>
-        <h3 className="text-2xl font-semibold">Posted By</h3>
+        <h3 className="text-2xl font-semibold">Seller Info</h3>
         {isLoading ? (
           <p>loading..</p>
         ) : (

@@ -22,7 +22,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="px-4 py-4 mx-auto  bg-yellow-300 sm:max-w-xl md:max-w-full  md:px-24 lg:px-8">
+    <div className="px-4 py-4 mx-auto  bg-neutral sm:max-w-xl md:max-w-full  md:px-24 lg:px-8">
       <div className="relative flex items-center justify-between">
         <div className="flex items-center">
           <NavLink
@@ -32,7 +32,7 @@ const Navbar = () => {
             className="inline-flex items-center mr-8"
           >
             {/* <img className="w-16" src={logo} alt="" /> */}
-            <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
+            <span className="ml-2 text-xl font-bold tracking-wide  uppercase">
               Bike Zone
             </span>
           </NavLink>
@@ -47,7 +47,7 @@ const Navbar = () => {
                 className={({ isActive }) =>
                   isActive
                     ? "font-medium tracking-wide text-cyan-400"
-                    : "font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-cyan-400"
+                    : "font-medium tracking-wide transition-colors duration-200 hover:text-cyan-400"
                 }
               >
                 Home
@@ -63,7 +63,7 @@ const Navbar = () => {
                   className={({ isActive }) =>
                     isActive
                       ? "font-medium tracking-wide text-cyan-400"
-                      : "font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-cyan-400"
+                      : "font-medium tracking-wide transition-colors duration-200 hover:text-cyan-400"
                   }
                 >
                   Dashboard
@@ -78,7 +78,7 @@ const Navbar = () => {
                 className={({ isActive }) =>
                   isActive
                     ? "font-medium tracking-wide text-cyan-400"
-                    : "font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-cyan-400"
+                    : "font-medium tracking-wide transition-colors duration-200 hover:text-cyan-400"
                 }
               >
                 Blog
@@ -95,7 +95,7 @@ const Navbar = () => {
               Log Out
             </button>
             <div className="relative flex-shrink-0 mr-2">
-              <span className="absolute bottom-0 right-0 w-4 h-4 bg-green-600 border rounded-full text-gray-800 border-gray-50"></span>
+              <span className="absolute bottom-0 right-0 w-4 h-4 bg-green-600 border rounded-full border-gray-50"></span>
               <img
                 src={user?.photoURL}
                 alt=""
@@ -111,7 +111,7 @@ const Navbar = () => {
                 to="/log-in"
                 aria-label="Log in"
                 title="Log in"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-cyan-400"
+                className="font-medium tracking-wide transition-colors duration-200 hover:text-cyan-400"
               >
                 Log in
               </Link>
@@ -152,7 +152,7 @@ const Navbar = () => {
           </button>
           {isMenuOpen && (
             <div className="absolute z-10 top-0 left-0 w-full">
-              <div className="p-5 bg-yellow-300 border rounded shadow-sm">
+              <div className="p-5 bg-base-300 border rounded shadow-sm">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <Link
@@ -163,7 +163,7 @@ const Navbar = () => {
                     >
                       {/* <img className="w-16" src={logo} alt="" /> */}
 
-                      <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
+                      <span className="ml-2 text-xl font-bold tracking-wide  uppercase">
                         Bike Zone
                       </span>
                     </Link>
@@ -194,7 +194,7 @@ const Navbar = () => {
                         className={({ isActive }) =>
                           isActive
                             ? "font-medium tracking-wide text-cyan-400"
-                            : "font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-cyan-400"
+                            : "font-medium tracking-wide transition-colors duration-200 hover:text-cyan-400"
                         }
                       >
                         Home
@@ -210,7 +210,7 @@ const Navbar = () => {
                           className={({ isActive }) =>
                             isActive
                               ? "font-medium tracking-wide text-cyan-400"
-                              : "font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-cyan-400"
+                              : "font-medium tracking-wide  transition-colors duration-200 hover:text-cyan-400"
                           }
                         >
                           Dashboard
@@ -226,7 +226,7 @@ const Navbar = () => {
                         className={({ isActive }) =>
                           isActive
                             ? "font-medium tracking-wide text-cyan-400"
-                            : "font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-cyan-400"
+                            : "font-medium tracking-wide transition-colors duration-200 hover:text-cyan-400"
                         }
                       >
                         Blog

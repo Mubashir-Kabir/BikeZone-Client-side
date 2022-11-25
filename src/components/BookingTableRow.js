@@ -1,5 +1,6 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 
 const BookingTableRow = ({ id }) => {
   const { data, isLoading } = useQuery({
@@ -31,7 +32,9 @@ const BookingTableRow = ({ id }) => {
       <td>{bookingProduct?.title}</td>
       <td>{bookingProduct?.price?.resale} tk</td>
       <th>
-        <button className="btn btn-ghost btn-xs">Pay</button>
+        <Link to={`../../dashboard/payment/${bookingProduct?._id}`}>
+          <button className="btn btn-info btn-sm">Pay</button>
+        </Link>
       </th>
     </tr>
   );

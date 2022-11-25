@@ -43,15 +43,6 @@ const MyProducts = () => {
             ></MyProductTableRow>
           ))}
         </tbody>
-        {/* <!-- foot --> */}
-        <tfoot>
-          <tr>
-            <th>Name</th>
-            <th>Job</th>
-            <th>Favorite Color</th>
-            <th></th>
-          </tr>
-        </tfoot>
       </table>
     </div>
   );

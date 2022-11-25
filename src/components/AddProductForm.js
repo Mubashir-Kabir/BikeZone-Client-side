@@ -13,7 +13,7 @@ const AddProductForm = () => {
   //states for user name,photo url, email,password and error
   const [err, setErr] = useState("");
   const [wait, setWait] = useState(false);
-  const [img, setImg] = useState("");
+  // const [img, setImg] = useState("");
 
   //------------------
 
@@ -43,8 +43,9 @@ const AddProductForm = () => {
   };
 
   const handleImg = (e) => {
+    e.preventDefault();
     setWait(true);
-    const tempImg = e.target.files[0];
+    const tempImg = e.target.img.files[0];
     const formData = new FormData();
     formData.append("image", tempImg);
     //--------
@@ -56,8 +57,11 @@ const AddProductForm = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setImg(data.data.url);
+        // setImg(data.data.url);
+        // console.log(img);
+        // console.log(data.data.url);
         setWait(false);
+        handlePost(e, data.data.url);
       });
   };
   const notifyHandle = (data) => {
@@ -69,7 +73,7 @@ const AddProductForm = () => {
     }
   };
 
-  const handlePost = (e) => {
+  const handlePost = (e, img) => {
     e.preventDefault();
     const title = e.target.name.value;
     const price = {
@@ -78,7 +82,7 @@ const AddProductForm = () => {
     };
     const number = e.target.number.value;
     const location = e.target.location.value;
-    const info = e.target.info.value;
+    // const info = e.target.info.value;
     const purchaseYear = e.target.purchaseYear.value;
     const isSold = false;
     const current = new Date();
@@ -117,13 +121,15 @@ const AddProductForm = () => {
 
   return (
     <div>
-      <div className="max-w-2xl mx-auto p-8 space-y-3 rounded-xl bg-gray-200 shadow-md text-gray-800">
+      <div className="max-w-2xl mx-auto p-8 space-y-3 rounded-xl bg-gray-600 shadow-md text-gray-800">
         <h1 className="text-red-500">{err}</h1>
 
-        <h1 className="text-2xl font-bold text-center">Add Bike for sale</h1>
+        <h1 className="text-2xl text-white font-bold text-center">
+          Add Bike for sale
+        </h1>
 
         <form
-          onSubmit={handlePost}
+          onSubmit={handleImg}
           noValidate=""
           action=""
           className="space-y-6 ng-untouched ng-pristine ng-valid"
@@ -135,13 +141,13 @@ const AddProductForm = () => {
               name="name"
               id="name"
               placeholder="Bike Name"
-              className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
+              className="w-full px-4 py-3 rounded-md border-gray-300  text-white focus:border-yellow-300"
             />
           </div>
           <select
             name="category"
             id="category"
-            className="select select-bordered w-full rounded-md"
+            className="select text-white select-bordered w-full rounded-md"
           >
             <option disabled selected>
               Select a Category
@@ -162,7 +168,7 @@ const AddProductForm = () => {
               id="info"
               //   cols="50"
               placeholder="Bike details..."
-              className="p-4 w-full rounded-md resize-none text-gray-800 "
+              className="p-4 w-full rounded-md resize-none text-white"
             ></textarea>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
@@ -173,7 +179,7 @@ const AddProductForm = () => {
                 name="originalPrice"
                 id="originalPrice"
                 placeholder="Original Price"
-                className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
+                className="w-full px-4 py-3 rounded-md border-gray-300  text-white focus:border-yellow-300"
               />
             </div>
             <div className="space-y-1 text-sm">
@@ -183,7 +189,7 @@ const AddProductForm = () => {
                 name="resalePrice"
                 id="resalePrice"
                 placeholder="Resale Price"
-                className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
+                className="w-full px-4 py-3 rounded-md border-gray-300  text-white focus:border-yellow-300"
               />
             </div>
           </div>
@@ -191,7 +197,7 @@ const AddProductForm = () => {
             <select
               name="condition"
               id="condition"
-              className="select select-bordered w-full rounded-md"
+              className="select text-white select-bordered w-full rounded-md"
             >
               <option disabled selected>
                 Condition
@@ -207,14 +213,16 @@ const AddProductForm = () => {
                 name="purchaseYear"
                 id="purchaseYear"
                 placeholder="purchase Year"
-                className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
+                className="w-full px-4 py-3 rounded-md border-gray-300  text-white focus:border-yellow-300"
               />
             </div>
           </div>
           <div className="space-y-1 text-sm">
-            <p className="text-md font-semibold">Picture of your Bike</p>
+            <p className="text-md text-white font-semibold">
+              Picture of your Bike
+            </p>
             <input
-              onChange={handleImg}
+              className="text-white"
               required
               type="file"
               name="img"
@@ -230,7 +238,7 @@ const AddProductForm = () => {
                 name="location"
                 id="location"
                 placeholder="Location"
-                className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
+                className="w-full px-4 py-3 rounded-md border-gray-300  text-white focus:border-yellow-300"
               />
             </div>
             <div className="space-y-1 text-sm">
@@ -240,14 +248,14 @@ const AddProductForm = () => {
                 name="number"
                 id="number"
                 placeholder="Phone Number"
-                className="w-full px-4 py-3 rounded-md border-gray-300  text-gray-800 focus:border-yellow-300"
+                className="w-full px-4 py-3 rounded-md border-gray-300  text-white focus:border-yellow-300"
               />
             </div>
           </div>
 
           <div className="block w-full  text-center rounded-md text-gray-50 bg-gray-600">
             {wait ? (
-              <p className="p-3">Wait..</p>
+              <p className="p-3">image uploading. please wait..</p>
             ) : (
               <button
                 className="block w-full p-3 text-center rounded-md text-gray-50 bg-cyan-400 hover:bg-cyan-600"
