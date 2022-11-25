@@ -26,7 +26,7 @@ const BookingModal = ({ item }) => {
       phoneNumber,
       meetingLocation,
     };
-    fetch(`${process.env.REACT_APP_serverUrl}/booking`, {
+    fetch(`${process.env.REACT_APP_serverUrl}/bookings`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
