@@ -86,6 +86,7 @@ const AddProductForm = () => {
     const seller = user?.email;
     const category = e.target.category.value;
     const condition = e.target.condition.value;
+    const advertize = false;
 
     const product = {
       title,
@@ -100,6 +101,7 @@ const AddProductForm = () => {
       category,
       condition,
       img,
+      advertize,
     };
     e.target.reset();
     fetch(`${process.env.REACT_APP_serverUrl}/products`, {

@@ -228,13 +228,14 @@ const RegisterForm = () => {
             />
           </div>
           <select
+            defaultValue="Buyer"
             name="accountType"
             id="accountType"
             className="select select-bordered w-full rounded-md"
           >
-            <option disabled selected>
+            {/* <option disabled selected>
               Select Account Type
-            </option>
+            </option> */}
             <option value="Seller">Seller</option>
             <option value="Buyer">Buyer</option>
           </select>
