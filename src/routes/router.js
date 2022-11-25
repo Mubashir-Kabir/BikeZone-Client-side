@@ -15,6 +15,7 @@ import AllSellers from "../pages/dashboard/AllSellers";
 import AllBuyers from "../pages/dashboard/AllBuyers";
 import Products from "../pages/Products";
 import Payment from "../pages/Payment";
+import AdminRoute from "../layout/AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -53,7 +54,11 @@ const router = createBrowserRouter([
           fetch(
             `${process.env.REACT_APP_serverUrl}/products?category=${params.id}`
           ),
-        element: <Products></Products>,
+        element: (
+          <PrivateRoute>
+            <Products></Products>
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -75,11 +80,19 @@ const router = createBrowserRouter([
       },
       {
         path: "all-sellers",
-        element: <AllSellers></AllSellers>,
+        element: (
+          <AdminRoute>
+            <AllSellers></AllSellers>
+          </AdminRoute>
+        ),
       },
       {
         path: "All-buyers",
-        element: <AllBuyers></AllBuyers>,
+        element: (
+          <AdminRoute>
+            <AllBuyers></AllBuyers>
+          </AdminRoute>
+        ),
       },
       {
         path: "my-orders",

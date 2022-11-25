@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../context/UserContext";
+import useAdmin from "../hooks/useAdmin";
 
 const DashboardNav = () => {
+  const { user } = useContext(AuthContext);
+  const [isAdmin] = useAdmin(user?.email);
   return (
     <div>
       <header className="p-4 bg-gray-100 text-gray-800">
@@ -44,30 +48,34 @@ const DashboardNav = () => {
               </NavLink>
             </li>
 
-            <li className="flex">
-              <NavLink
-                to="all-sellers"
-                className={({ isActive }) =>
-                  isActive
-                    ? "font-medium tracking-wide text-cyan-400"
-                    : "font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-cyan-400"
-                }
-              >
-                All Sellers
-              </NavLink>
-            </li>
-            <li className="flex">
-              <NavLink
-                to="all-buyers"
-                className={({ isActive }) =>
-                  isActive
-                    ? "font-medium tracking-wide text-cyan-400"
-                    : "font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-cyan-400"
-                }
-              >
-                All Buyers
-              </NavLink>
-            </li>
+            {isAdmin && (
+              <>
+                <li className="flex">
+                  <NavLink
+                    to="all-sellers"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "font-medium tracking-wide text-cyan-400"
+                        : "font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-cyan-400"
+                    }
+                  >
+                    All Sellers
+                  </NavLink>
+                </li>
+                <li className="flex">
+                  <NavLink
+                    to="all-buyers"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "font-medium tracking-wide text-cyan-400"
+                        : "font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-cyan-400"
+                    }
+                  >
+                    All Buyers
+                  </NavLink>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </header>
