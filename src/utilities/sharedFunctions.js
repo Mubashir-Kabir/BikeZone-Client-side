@@ -1,22 +1,22 @@
 import { toast } from "react-toastify";
 
 export const requestJwtToken = (mail) => {
-  // const email = {
-  //   email: mail,
-  // };
-  // fetch("https://koni-s-kitchen-server-side.vercel.app/jwt-token", {
-  //   method: "POST",
-  //   headers: {
-  //     "content-type": "application/json",
-  //   },
-  //   body: JSON.stringify(email),
-  // }).then((res) =>
-  //   res.json().then((data) => {
-  //     if (data.status) {
-  //       localStorage.setItem("accessToken", data.data);
-  //     }
-  //   })
-  // );
+  const email = {
+    email: mail,
+  };
+  fetch(`${process.env.REACT_APP_serverUrl}/jwt-token`, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(email),
+  }).then((res) =>
+    res.json().then((data) => {
+      if (data.status) {
+        localStorage.setItem("accessToken", data.data);
+      }
+    })
+  );
   return;
 };
 

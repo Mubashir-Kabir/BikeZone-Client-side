@@ -44,7 +44,7 @@ const BookingModal = ({ item }) => {
     <div>
       {/* The button to open modal */}
       <label htmlFor="booking-modal" className="btn btn-primary">
-        Book
+        Book Now
       </label>
 
       {/* Put this part before </body> tag */}

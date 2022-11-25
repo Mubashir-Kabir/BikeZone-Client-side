@@ -23,6 +23,9 @@ const MyProductTableRow = ({ product }) => {
     if (permission) {
       fetch(`${process.env.REACT_APP_serverUrl}/advertize/${product?._id}`, {
         method: "PUT",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
       })
         .then((res) => res.json())
         .then((data) => {

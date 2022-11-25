@@ -3,7 +3,7 @@ import { signOut } from "firebase/auth";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../context/UserContext";
 import { notifyError, notifySuccess } from "../utilities/sharedFunctions";
-// import logo from "../utilities/logo.png";
+import logo from "../utilities/pngwing.com (1).png";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,7 +31,7 @@ const Navbar = () => {
             title="Company"
             className="inline-flex items-center mr-8"
           >
-            {/* <img className="w-16" src={logo} alt="" /> */}
+            <img className="w-20" src={logo} alt="" />
             <span className="ml-2 text-xl font-bold tracking-wide  uppercase">
               Bike Zone
             </span>

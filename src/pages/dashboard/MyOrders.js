@@ -8,9 +8,11 @@ const MyOrders = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["categories"],
     queryFn: () =>
-      fetch(
-        `${process.env.REACT_APP_serverUrl}/bookings?email=${user.email}`
-      ).then((res) => res.json()),
+      fetch(`${process.env.REACT_APP_serverUrl}/bookings?email=${user.email}`, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }).then((res) => res.json()),
   });
   let bookingProducts = [];
   if (!isLoading) {

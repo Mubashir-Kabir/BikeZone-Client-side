@@ -1,5 +1,6 @@
 import BookingModal from "./BookingModal";
 import { useQuery } from "@tanstack/react-query";
+import { GoVerified } from "react-icons/go";
 
 const ProductCard = ({ item }) => {
   const {
@@ -80,7 +81,14 @@ const ProductCard = ({ item }) => {
                 />
               </div>
               <div className="text-left">
-                <h4 className="font-bold">{user.name}</h4>
+                <h4 className="font-bold flex items-center">
+                  {user.name}{" "}
+                  {user?.verified ? (
+                    <GoVerified className="ml-2 text-cyan-600"></GoVerified>
+                  ) : (
+                    <></>
+                  )}
+                </h4>
                 <span className="text-xs text-gray-600">
                   {" "}
                   {(postTime + "")?.split("T")[0]}
