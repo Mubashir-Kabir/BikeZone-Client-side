@@ -1,4 +1,3 @@
-import React, { useContext } from "react";
 import BookingModal from "./BookingModal";
 import { useQuery } from "@tanstack/react-query";
 
