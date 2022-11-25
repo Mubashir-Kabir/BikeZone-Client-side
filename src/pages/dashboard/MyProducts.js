@@ -16,7 +16,6 @@ const MyProducts = () => {
   if (!isLoading) {
     if (data?.status) {
       myProducts = data.data;
-      console.log(myProducts);
     }
   }
 
@@ -37,7 +36,7 @@ const MyProducts = () => {
         </thead>
         <tbody>
           {/* <!-- row 1 --> */}
-          {myProducts.map((product) => (
+          {myProducts?.map((product) => (
             <MyProductTableRow
               key={product._id}
               product={product}

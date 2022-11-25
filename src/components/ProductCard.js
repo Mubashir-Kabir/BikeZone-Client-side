@@ -3,14 +3,14 @@ import { useQuery } from "@tanstack/react-query";
 
 const ProductCard = ({ item }) => {
   const {
-    title, //------------
-    image, //---------
+    title,
+    image,
     price,
     condition,
-    seller, //-----------
+    seller,
     number,
     location,
-    info, //------------
+    info,
     purchaseYear,
     isSold,
     postTime,
