@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../context/UserContext";
 import BookingModal from "./BookingModal";
+import { useQuery } from "@tanstack/react-query";
 
 const ProductCard = ({ item }) => {
-  const { user } = useContext(AuthContext);
   const {
     title, //------------
     image, //---------
@@ -17,9 +16,25 @@ const ProductCard = ({ item }) => {
     isSold,
     postTime,
   } = item;
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["seller"],
+    queryFn: () =>
+      fetch(`${process.env.REACT_APP_serverUrl}/users?email=${seller}`).then(
+        (res) => res.json()
+      ),
+  });
+  let user = [];
+  if (!isLoading) {
+    if (data?.status) {
+      user = data.data;
+    }
+  }
+
   if (isSold) {
     return <></>;
   }
+
   return (
     <div className="card lg:card-side bg-base-100 shadow-xl">
       <figure>
@@ -36,22 +51,29 @@ const ProductCard = ({ item }) => {
           <p>Purchase: {purchaseYear}</p>
         </div>
         <h3 className="text-2xl font-semibold">Posted By</h3>
-        <div className="flex justify-between">
-          <div className="flex space-x-4">
-            <div>
-              <img
-                src={user.photoURL}
-                alt=""
-                className="object-cover w-12 h-12 rounded-full bg-gray-500"
-              />
-            </div>
-            <div className="text-left">
-              <h4 className="font-bold">{user.displayName}</h4>
-              <span className="text-xs text-gray-600">{postTime}</span>
-              <p className="text-xs text-gray-600">{number}</p>
+        {isLoading ? (
+          <p>loading..</p>
+        ) : (
+          <div className="flex justify-between">
+            <div className="flex space-x-4">
+              <div>
+                <img
+                  src={user.img}
+                  alt=""
+                  className="object-cover w-12 h-12 rounded-full bg-gray-500"
+                />
+              </div>
+              <div className="text-left">
+                <h4 className="font-bold">{user.name}</h4>
+                <span className="text-xs text-gray-600">
+                  {" "}
+                  {(postTime + "")?.split("T")[0]}
+                </span>
+                <p className="text-xs text-gray-600">{number}</p>
+              </div>
             </div>
           </div>
-        </div>
+        )}
         <div className="card-actions justify-end">
           <BookingModal item={item}></BookingModal>
         </div>

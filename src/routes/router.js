@@ -48,10 +48,10 @@ const router = createBrowserRouter([
       },
       {
         path: "category/:id",
-        // loader: ({ params }) =>
-        //   fetch(
-        //     `https://koni-s-kitchen-server-side.vercel.app/services/${params.id}`
-        //   ),
+        loader: ({ params }) =>
+          fetch(
+            `${process.env.REACT_APP_serverUrl}/products?category=${params.id}`
+          ),
         element: <Products></Products>,
       },
     ],

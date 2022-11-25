@@ -10,7 +10,7 @@ const HomeCategory = () => {
   });
   let categories = [];
   if (!isLoading) {
-    if (data.status) {
+    if (data?.status) {
       categories = data.data;
     }
   }
