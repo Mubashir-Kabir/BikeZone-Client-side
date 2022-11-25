@@ -4,7 +4,7 @@ import SellersTableRow from "../../components/SellersTableRow";
 
 const AllSellers = () => {
   const { data, isLoading } = useQuery({
-    queryKey: ["allusers"],
+    queryKey: ["sellers"],
     queryFn: () =>
       fetch(`${process.env.REACT_APP_serverUrl}/allusers?role=Seller`).then(
         (res) => res.json()

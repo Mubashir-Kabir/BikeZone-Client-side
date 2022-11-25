@@ -1,29 +1,28 @@
 import React from "react";
 
-const SellersTableRow = ({ seller }) => {
+const BuyerTableRow = ({ buyer }) => {
   return (
     <tr>
       <td>
         <div className="avatar">
           <div className="w-24 rounded">
-            <img alt="" src={seller?.img} />
+            <img alt="" src={buyer?.img} />
           </div>
         </div>
       </td>
-      <td>{seller?.name}</td>
-      <td>{seller?.email} tk</td>
+      <td>{buyer?.name}</td>
+      <td>{buyer?.email} tk</td>
       <th>
-        {seller?.verified ? (
+        {buyer?.verified ? (
           <button disabled className="btn btn-ghost btn-xs">
             Verified
           </button>
         ) : (
-          <button className="btn btn-ghost btn-xs">Verify</button>
+          <button className="btn btn-ghost btn-xs">Delete</button>
         )}
-        <button className="btn btn-ghost btn-xs">Delete</button>
       </th>
     </tr>
   );
 };
 
-export default SellersTableRow;
+export default BuyerTableRow;
