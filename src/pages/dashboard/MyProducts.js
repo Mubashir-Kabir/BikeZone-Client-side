@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { AuthContext } from "../../context/UserContext";
 import MyProductTableRow from "../../components/MyProductTableRow";
+import Spinner from "../../components/Spinner";
 
 const MyProducts = () => {
   const { user } = useContext(AuthContext);
@@ -20,7 +21,7 @@ const MyProducts = () => {
   }
 
   if (isLoading) {
-    return <p>loading...</p>;
+    return <Spinner></Spinner>;
   }
   return (
     <div className="overflow-x-auto w-full">
@@ -35,7 +36,7 @@ const MyProducts = () => {
           </tr>
         </thead>
         <tbody>
-          {/* <!-- row 1 --> */}
+          {/* <!-- row  --> */}
           {myProducts?.map((product) => (
             <MyProductTableRow
               key={product._id}

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../context/UserContext";
 import { notifyError, notifySuccess } from "../utilities/sharedFunctions";
 
-const BuyerTableRow = ({ buyer }) => {
+const BuyerTableRow = ({ buyer, refetch }) => {
   const { user } = useContext(AuthContext);
 
   const handleDelete = () => {
@@ -18,6 +18,7 @@ const BuyerTableRow = ({ buyer }) => {
         .then((res) => res.json())
         .then((data) => {
           if (data.status) {
+            refetch();
             return notifySuccess("Deleted Successfully");
           }
           return notifyError("Something went wrong please try again");

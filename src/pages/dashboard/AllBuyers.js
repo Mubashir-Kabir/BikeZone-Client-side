@@ -3,10 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import BuyerTableRow from "../../components/BuyerTableRow";
 // import userEvent from "@testing-library/user-event";
 import { AuthContext } from "../../context/UserContext";
+import Spinner from "../../components/Spinner";
 
 const AllBuyers = () => {
   const { user } = useContext(AuthContext);
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["buyers"],
     queryFn: () =>
       fetch(`${process.env.REACT_APP_serverUrl}/allusers?role=Buyer`, {
@@ -24,7 +25,7 @@ const AllBuyers = () => {
   }
 
   if (isLoading) {
-    return <p>loading...</p>;
+    return <Spinner></Spinner>;
   }
   return (
     <div className="overflow-x-auto w-full">
@@ -41,7 +42,11 @@ const AllBuyers = () => {
         <tbody>
           {/* <!-- row 1 --> */}
           {buyers?.map((buyer) => (
-            <BuyerTableRow key={buyer._id} buyer={buyer}></BuyerTableRow>
+            <BuyerTableRow
+              refetch={refetch}
+              key={buyer._id}
+              buyer={buyer}
+            ></BuyerTableRow>
           ))}
         </tbody>
       </table>

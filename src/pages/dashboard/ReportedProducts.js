@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
-import BuyerTableRow from "../../components/BuyerTableRow";
 import { AuthContext } from "../../context/UserContext";
 import ReportedProductTableRow from "../../components/ReportedProductTableRow";
+import Spinner from "../../components/Spinner";
 
 const ReportedProducts = () => {
   const { user } = useContext(AuthContext);
@@ -25,7 +25,7 @@ const ReportedProducts = () => {
   }
 
   if (isLoading) {
-    return <p>loading...</p>;
+    return <Spinner></Spinner>;
   }
   return (
     <div className="overflow-x-auto w-full">

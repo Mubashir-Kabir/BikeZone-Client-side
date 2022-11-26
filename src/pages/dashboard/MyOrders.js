@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import BookingTableRow from "../../components/BookingTableRow";
 import { AuthContext } from "../../context/UserContext";
+import Spinner from "../../components/Spinner";
 
 const MyOrders = () => {
   const { user } = useContext(AuthContext);
@@ -23,7 +24,7 @@ const MyOrders = () => {
   }
 
   if (isLoading) {
-    return <p>loading...</p>;
+    return <Spinner></Spinner>;
   }
 
   return (

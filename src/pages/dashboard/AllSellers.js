@@ -2,11 +2,12 @@ import React, { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import SellersTableRow from "../../components/SellersTableRow";
 import { AuthContext } from "../../context/UserContext";
+import Spinner from "../../components/Spinner";
 
 const AllSellers = () => {
   const { user } = useContext(AuthContext);
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["sellers"],
     queryFn: () =>
       fetch(`${process.env.REACT_APP_serverUrl}/allusers?role=Seller`, {
@@ -25,7 +26,7 @@ const AllSellers = () => {
   }
 
   if (isLoading) {
-    return <p>loading...</p>;
+    return <Spinner></Spinner>;
   }
   return (
     <div className="overflow-x-auto w-full">
@@ -42,7 +43,11 @@ const AllSellers = () => {
         <tbody>
           {/* <!-- row 1 --> */}
           {sellers?.map((seller) => (
-            <SellersTableRow key={seller._id} seller={seller}></SellersTableRow>
+            <SellersTableRow
+              refetch={refetch}
+              key={seller._id}
+              seller={seller}
+            ></SellersTableRow>
           ))}
         </tbody>
       </table>

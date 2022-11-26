@@ -18,7 +18,7 @@ const BookingTableRow = ({ id }) => {
   }
 
   if (isLoading) {
-    return <tr>loading</tr>;
+    return <tr>loading...</tr>;
   }
   return (
     <tr>

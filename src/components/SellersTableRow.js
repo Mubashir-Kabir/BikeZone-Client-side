@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../context/UserContext";
 import { notifyError, notifySuccess } from "../utilities/sharedFunctions";
 
-const SellersTableRow = ({ seller }) => {
+const SellersTableRow = ({ seller, refetch }) => {
   const { user } = useContext(AuthContext);
 
   const handleVerify = () => {
@@ -20,6 +20,7 @@ const SellersTableRow = ({ seller }) => {
         .then((res) => res.json())
         .then((data) => {
           if (data.status) {
+            refetch();
             return notifySuccess("Verified Successfully");
           }
           return notifyError("Something went wrong please try again");
@@ -39,6 +40,7 @@ const SellersTableRow = ({ seller }) => {
         .then((res) => res.json())
         .then((data) => {
           if (data.status) {
+            refetch();
             return notifySuccess("Deleted Successfully");
           }
           return notifyError("Something went wrong please try again");

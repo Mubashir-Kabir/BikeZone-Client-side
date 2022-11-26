@@ -147,13 +147,11 @@ const AddProductForm = () => {
             />
           </div>
           <select
+            defaultValue="Standard"
             name="category"
             id="category"
             className="select text-white select-bordered w-full rounded-md"
           >
-            <option disabled selected>
-              Select a Category
-            </option>
             {!isLoading &&
               categories.map((category) => (
                 <option key={category._id} value={category._id}>
@@ -197,13 +195,11 @@ const AddProductForm = () => {
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
             <select
+              defaultValue="Good"
               name="condition"
               id="condition"
               className="select text-white select-bordered w-full rounded-md"
             >
-              <option disabled selected>
-                Condition
-              </option>
               <option value="Excellent">Excellent</option>
               <option value="Good">Good</option>
               <option value="Fair">Fair</option>

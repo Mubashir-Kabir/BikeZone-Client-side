@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { DashboardCard } from "../components/DashboardCard";
+import Spinner from "../components/Spinner";
 import { AuthContext } from "../context/UserContext";
 import useAdmin from "../hooks/useAdmin";
 import useSeller from "../hooks/useSeller";
@@ -10,7 +11,7 @@ const Dashboard = () => {
   const [isSeller, isSellerLoading] = useSeller(user?.email);
 
   if (isAdminLoading || isSellerLoading) {
-    return <p>Loading...</p>;
+    return <Spinner></Spinner>;
   }
 
   return (

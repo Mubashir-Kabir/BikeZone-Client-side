@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import HomeCard from "./HomeCard";
+import Spinner from "./Spinner";
 
 const HomeCategory = () => {
   const { data, isLoading } = useQuery({
@@ -16,7 +17,7 @@ const HomeCategory = () => {
   }
 
   if (isLoading) {
-    return <p>loading...</p>;
+    return <Spinner></Spinner>;
   }
 
   return (
