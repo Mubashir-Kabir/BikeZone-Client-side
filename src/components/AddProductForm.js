@@ -112,6 +112,8 @@ const AddProductForm = () => {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        applieremail: user.email,
       },
       body: JSON.stringify(product),
     })

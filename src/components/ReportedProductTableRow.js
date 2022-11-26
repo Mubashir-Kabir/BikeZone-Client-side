@@ -2,13 +2,13 @@ import React, { useContext } from "react";
 import { AuthContext } from "../context/UserContext";
 import { notifyError, notifySuccess } from "../utilities/sharedFunctions";
 
-const BuyerTableRow = ({ buyer }) => {
+const ReportedProductTableRow = ({ product, refetch }) => {
   const { user } = useContext(AuthContext);
 
   const handleDelete = () => {
     const permission = window.confirm("Are you sure you want to delete?");
     if (permission) {
-      fetch(`${process.env.REACT_APP_serverUrl}/users/${buyer?._id}`, {
+      fetch(`${process.env.REACT_APP_serverUrl}/products/${product?._id}`, {
         method: "DELETE",
         headers: {
           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -18,6 +18,7 @@ const BuyerTableRow = ({ buyer }) => {
         .then((res) => res.json())
         .then((data) => {
           if (data.status) {
+            refetch();
             return notifySuccess("Deleted Successfully");
           }
           return notifyError("Something went wrong please try again");
@@ -29,12 +30,12 @@ const BuyerTableRow = ({ buyer }) => {
       <td>
         <div className="avatar">
           <div className="w-24 rounded">
-            <img alt="" src={buyer?.img} />
+            <img alt="" src={product?.img} />
           </div>
         </div>
       </td>
-      <td>{buyer?.name}</td>
-      <td>{buyer?.email} </td>
+      <td>{product?.title}</td>
+      <td>{product?.price?.resale} </td>
       <th>
         <button onClick={handleDelete} className="btn btn-error btn-xs">
           Delete
@@ -44,4 +45,4 @@ const BuyerTableRow = ({ buyer }) => {
   );
 };
 
-export default BuyerTableRow;
+export default ReportedProductTableRow;

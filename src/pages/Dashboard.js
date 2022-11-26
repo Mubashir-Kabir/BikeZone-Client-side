@@ -6,8 +6,13 @@ import useSeller from "../hooks/useSeller";
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
-  const [isAdmin] = useAdmin(user?.email);
-  const [isSeller] = useSeller(user?.email);
+  const [isAdmin, isAdminLoading] = useAdmin(user?.email);
+  const [isSeller, isSellerLoading] = useSeller(user?.email);
+
+  if (isAdminLoading || isSellerLoading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div className="lg:mx-36 lg:my-20">
       <div className="grid gap-6 row-gap-5 mb-8 lg:grid-cols-2 sm:row-gap-6 grid-cols-1">
@@ -33,6 +38,10 @@ const Dashboard = () => {
               content="All Sellers"
             ></DashboardCard>
             <DashboardCard to="all-buyers" content="All Buyers"></DashboardCard>
+            <DashboardCard
+              to="reported-products"
+              content="Reported Products"
+            ></DashboardCard>
           </>
         )}
       </div>

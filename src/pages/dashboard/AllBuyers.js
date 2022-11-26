@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import BuyerTableRow from "../../components/BuyerTableRow";
+// import userEvent from "@testing-library/user-event";
+import { AuthContext } from "../../context/UserContext";
 
 const AllBuyers = () => {
+  const { user } = useContext(AuthContext);
   const { data, isLoading } = useQuery({
     queryKey: ["buyers"],
     queryFn: () =>
       fetch(`${process.env.REACT_APP_serverUrl}/allusers?role=Buyer`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          applieremail: user.email,
         },
       }).then((res) => res.json()),
   });
@@ -16,7 +20,6 @@ const AllBuyers = () => {
   if (!isLoading) {
     if (data?.status) {
       buyers = data.data;
-      console.log(buyers);
     }
   }
 

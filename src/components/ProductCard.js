@@ -1,6 +1,9 @@
 import BookingModal from "./BookingModal";
 import { useQuery } from "@tanstack/react-query";
 import { GoVerified } from "react-icons/go";
+import { notifyError, notifySuccess } from "../utilities/sharedFunctions";
+import { useContext } from "react";
+import { AuthContext } from "../context/UserContext";
 
 const ProductCard = ({ item }) => {
   const {
@@ -16,6 +19,29 @@ const ProductCard = ({ item }) => {
     isSold,
     postTime,
   } = item;
+  const { user: currentUser } = useContext(AuthContext);
+
+  const handleReport = () => {
+    const permission = window.confirm(
+      "Are you sure you want to Verify the user?"
+    );
+    if (permission) {
+      fetch(`${process.env.REACT_APP_serverUrl}/report/${item?._id}`, {
+        method: "PUT",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          applieremail: currentUser.email,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status) {
+            return notifySuccess("Reported Successfully");
+          }
+          return notifyError("Something went wrong please try again");
+        });
+    }
+  };
 
   const { data, isLoading } = useQuery({
     queryKey: ["seller"],
@@ -37,7 +63,7 @@ const ProductCard = ({ item }) => {
 
   return (
     <div className="card lg:card-side bg-base-100 shadow-xl">
-      <figure>
+      <figure className="lg:w-2/3">
         <img src={img} alt="Album" />
       </figure>
       <div className="card-body">
@@ -98,8 +124,19 @@ const ProductCard = ({ item }) => {
             </div>
           </div>
         )}
-        <div className="card-actions justify-end">
-          <BookingModal item={item}></BookingModal>
+        <div className="flex justify-end gap-3">
+          {item?.reported ? (
+            <button disabled className="btn btn-error">
+              Already Report
+            </button>
+          ) : (
+            <button onClick={handleReport} className="btn btn-error">
+              Report
+            </button>
+          )}
+          <div className="card-actions justify-end">
+            <BookingModal item={item}></BookingModal>
+          </div>
         </div>
       </div>
     </div>

@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../context/UserContext";
 import { notifyError, notifySuccess } from "../utilities/sharedFunctions";
 
-const MyProductTableRow = ({ product }) => {
+const MyProductTableRow = ({ product, refetch }) => {
+  const { user } = useContext(AuthContext);
   const handleDelete = () => {
     const permission = window.confirm("Are you sure you want to delete?");
     if (permission) {
       fetch(`${process.env.REACT_APP_serverUrl}/products/${product?._id}`, {
         method: "DELETE",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          applieremail: user.email,
+        },
       })
         .then((res) => res.json())
         .then((data) => {
           if (data.status) {
+            refetch();
             return notifySuccess("Deleted Successfully");
           }
           return notifyError("Something went wrong please try again");
@@ -25,11 +32,13 @@ const MyProductTableRow = ({ product }) => {
         method: "PUT",
         headers: {
           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          applieremail: user.email,
         },
       })
         .then((res) => res.json())
         .then((data) => {
           if (data.status) {
+            refetch();
             return notifySuccess("Advertize Successfully");
           }
           return notifyError("Something went wrong please try again");

@@ -82,6 +82,18 @@ const DashboardNav = () => {
                     All Buyers
                   </NavLink>
                 </li>
+                <li className="flex">
+                  <NavLink
+                    to="reported-products"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "font-medium tracking-wide text-cyan-400"
+                        : "font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-cyan-400"
+                    }
+                  >
+                    Reported Products
+                  </NavLink>
+                </li>
               </>
             )}
           </ul>

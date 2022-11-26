@@ -18,6 +18,7 @@ import Payment from "../pages/Payment";
 import AdminRoute from "../layout/AdminRoute";
 import SellerRoute from "../layout/SellerRoute";
 import BuyerRoute from "../layout/BuyerRoute";
+import ReportedProducts from "../pages/dashboard/ReportedProducts";
 
 const router = createBrowserRouter([
   {
@@ -63,9 +64,9 @@ const router = createBrowserRouter([
             },
           }),
         element: (
-          <PrivateRoute>
+          <BuyerRoute>
             <Products></Products>
-          </PrivateRoute>
+          </BuyerRoute>
         ),
       },
     ],
@@ -103,10 +104,18 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "All-buyers",
+        path: "all-buyers",
         element: (
           <AdminRoute>
             <AllBuyers></AllBuyers>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "reported-products",
+        element: (
+          <AdminRoute>
+            <ReportedProducts></ReportedProducts>
           </AdminRoute>
         ),
       },

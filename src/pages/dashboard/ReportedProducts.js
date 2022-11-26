@@ -1,26 +1,26 @@
 import React, { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
-import SellersTableRow from "../../components/SellersTableRow";
+import BuyerTableRow from "../../components/BuyerTableRow";
 import { AuthContext } from "../../context/UserContext";
+import ReportedProductTableRow from "../../components/ReportedProductTableRow";
 
-const AllSellers = () => {
+const ReportedProducts = () => {
   const { user } = useContext(AuthContext);
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["sellers"],
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ["products"],
     queryFn: () =>
-      fetch(`${process.env.REACT_APP_serverUrl}/allusers?role=Seller`, {
+      fetch(`${process.env.REACT_APP_serverUrl}/reportedproducts`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           applieremail: user.email,
         },
       }).then((res) => res.json()),
   });
-  let sellers = [];
+  let products = [];
   if (!isLoading) {
     if (data?.status) {
-      sellers = data.data;
-      console.log(sellers);
+      products = data.data;
     }
   }
 
@@ -35,14 +35,18 @@ const AllSellers = () => {
           <tr>
             <th>Image</th>
             <th>Name</th>
-            <th>Email</th>
+            <th>Price</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           {/* <!-- row 1 --> */}
-          {sellers?.map((seller) => (
-            <SellersTableRow key={seller._id} seller={seller}></SellersTableRow>
+          {products?.map((product) => (
+            <ReportedProductTableRow
+              refetch={refetch}
+              key={product._id}
+              product={product}
+            ></ReportedProductTableRow>
           ))}
         </tbody>
       </table>
@@ -50,4 +54,4 @@ const AllSellers = () => {
   );
 };
 
-export default AllSellers;
+export default ReportedProducts;

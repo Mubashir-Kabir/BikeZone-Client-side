@@ -5,7 +5,7 @@ import MyProductTableRow from "../../components/MyProductTableRow";
 
 const MyProducts = () => {
   const { user } = useContext(AuthContext);
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: [user],
     queryFn: () =>
       fetch(
@@ -40,6 +40,7 @@ const MyProducts = () => {
             <MyProductTableRow
               key={product._id}
               product={product}
+              refetch={refetch}
             ></MyProductTableRow>
           ))}
         </tbody>

@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../context/UserContext";
 import { notifyError, notifySuccess } from "../utilities/sharedFunctions";
 
 const SellersTableRow = ({ seller }) => {
+  const { user } = useContext(AuthContext);
+
   const handleVerify = () => {
     const permission = window.confirm(
       "Are you sure you want to Verify the user?"
@@ -9,6 +12,10 @@ const SellersTableRow = ({ seller }) => {
     if (permission) {
       fetch(`${process.env.REACT_APP_serverUrl}/userverify/${seller?._id}`, {
         method: "PUT",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          applieremail: user.email,
+        },
       })
         .then((res) => res.json())
         .then((data) => {
@@ -24,6 +31,10 @@ const SellersTableRow = ({ seller }) => {
     if (permission) {
       fetch(`${process.env.REACT_APP_serverUrl}/users/${seller?._id}`, {
         method: "DELETE",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          applieremail: user.email,
+        },
       })
         .then((res) => res.json())
         .then((data) => {
