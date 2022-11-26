@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-// import { Footer } from "../component/Footer";
+import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
 const Root = () => {
@@ -8,7 +8,7 @@ const Root = () => {
     <div>
       <Navbar></Navbar>
       <Outlet></Outlet>
-      {/* <Footer></Footer> */}
+      <Footer></Footer>
     </div>
   );
 };
