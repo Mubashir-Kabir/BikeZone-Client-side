@@ -32,9 +32,13 @@ const BookingTableRow = ({ id }) => {
       <td>{bookingProduct?.title}</td>
       <td>{bookingProduct?.price?.resale} tk</td>
       <th>
-        <Link to={`../../dashboard/payment/${bookingProduct?._id}`}>
-          <button className="btn btn-info btn-sm">Pay</button>
-        </Link>
+        {bookingProduct?.isSold ? (
+          <p className=" text-success font-semibold">Paid</p>
+        ) : (
+          <Link to={`../../dashboard/payment/${bookingProduct?._id}`}>
+            <button className="btn btn-info btn-sm">Pay</button>
+          </Link>
+        )}
       </th>
     </tr>
   );

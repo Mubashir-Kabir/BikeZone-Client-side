@@ -23,7 +23,9 @@ const Dashboard = () => {
             ></DashboardCard>
           </>
         )}
-        <DashboardCard to="my-orders" content="My Orders"></DashboardCard>
+        {!isAdmin && !isSeller && (
+          <DashboardCard to="my-orders" content="My Orders"></DashboardCard>
+        )}
         {isAdmin && (
           <>
             <DashboardCard

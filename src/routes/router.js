@@ -17,6 +17,7 @@ import Products from "../pages/Products";
 import Payment from "../pages/Payment";
 import AdminRoute from "../layout/AdminRoute";
 import SellerRoute from "../layout/SellerRoute";
+import BuyerRoute from "../layout/BuyerRoute";
 
 const router = createBrowserRouter([
   {
@@ -111,7 +112,11 @@ const router = createBrowserRouter([
       },
       {
         path: "my-orders",
-        element: <MyOrders></MyOrders>,
+        element: (
+          <BuyerRoute>
+            <MyOrders></MyOrders>
+          </BuyerRoute>
+        ),
       },
       {
         path: "payment/:id",
