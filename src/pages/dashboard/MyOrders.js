@@ -29,6 +29,13 @@ const MyOrders = () => {
   if (isLoading) {
     return <Spinner></Spinner>;
   }
+  if (!bookingProducts?.length) {
+    return (
+      <div className="min-h-[45vh] flex justify-center items-center">
+        <h1 className="text-3xl font-semibold">Nothing booked or buy yet!!</h1>
+      </div>
+    );
+  }
 
   return (
     <div className="overflow-x-auto w-full">

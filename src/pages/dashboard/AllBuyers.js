@@ -30,6 +30,15 @@ const AllBuyers = () => {
   if (isLoading) {
     return <Spinner></Spinner>;
   }
+  if (!buyers?.length) {
+    return (
+      <div className="min-h-[45vh] flex justify-center items-center">
+        <h1 className="text-3xl font-semibold">
+          No buyers account right now!!
+        </h1>
+      </div>
+    );
+  }
   return (
     <div className="overflow-x-auto w-full">
       <table className="table w-full">

@@ -7,8 +7,10 @@ const Root = () => {
   return (
     <div>
       <Navbar></Navbar>
-      <Outlet></Outlet>
-      <Footer></Footer>
+      <div className="min-h-[45vh]">
+        <Outlet></Outlet>
+        <Footer></Footer>
+      </div>
     </div>
   );
 };

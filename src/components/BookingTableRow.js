@@ -20,6 +20,9 @@ const BookingTableRow = ({ id }) => {
   if (isLoading) {
     return <tr>loading...</tr>;
   }
+  if (!bookingProduct) {
+    return;
+  }
   return (
     <tr>
       <td>
