@@ -1,4 +1,5 @@
 import React from "react";
+import Banner from "../components/Banner";
 import HomeCategory from "../components/HomeCategory";
 import Slider from "../components/Slider";
 import useTitle from "../hooks/useTitle";
@@ -8,7 +9,7 @@ const Home = () => {
 
   return (
     <div>
-      <h1>this is home</h1>
+      <Banner></Banner>
       <Slider></Slider>
       <HomeCategory></HomeCategory>
     </div>
