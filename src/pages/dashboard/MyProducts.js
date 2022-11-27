@@ -3,8 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import { AuthContext } from "../../context/UserContext";
 import MyProductTableRow from "../../components/MyProductTableRow";
 import Spinner from "../../components/Spinner";
+import useTitle from "../../hooks/useTitle";
 
 const MyProducts = () => {
+  useTitle("My Products");
+
   const { user } = useContext(AuthContext);
   const { data, isLoading, refetch } = useQuery({
     queryKey: [user],

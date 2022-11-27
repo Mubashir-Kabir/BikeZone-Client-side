@@ -4,8 +4,11 @@ import Spinner from "../components/Spinner";
 import { AuthContext } from "../context/UserContext";
 import useAdmin from "../hooks/useAdmin";
 import useSeller from "../hooks/useSeller";
+import useTitle from "../hooks/useTitle";
 
 const Dashboard = () => {
+  useTitle("Dashboard");
+
   const { user } = useContext(AuthContext);
   const [isAdmin, isAdminLoading] = useAdmin(user?.email);
   const [isSeller, isSellerLoading] = useSeller(user?.email);

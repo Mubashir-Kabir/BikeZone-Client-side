@@ -4,8 +4,11 @@ import BuyerTableRow from "../../components/BuyerTableRow";
 // import userEvent from "@testing-library/user-event";
 import { AuthContext } from "../../context/UserContext";
 import Spinner from "../../components/Spinner";
+import useTitle from "../../hooks/useTitle";
 
 const AllBuyers = () => {
+  useTitle("Buyers");
+
   const { user } = useContext(AuthContext);
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["buyers"],

@@ -1,8 +1,11 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
+import useTitle from "../hooks/useTitle";
 
 const Products = () => {
+  useTitle("Bikes");
+
   const items = useLoaderData().data;
 
   return (

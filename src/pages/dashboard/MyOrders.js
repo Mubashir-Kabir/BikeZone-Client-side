@@ -3,8 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import BookingTableRow from "../../components/BookingTableRow";
 import { AuthContext } from "../../context/UserContext";
 import Spinner from "../../components/Spinner";
+import useTitle from "../../hooks/useTitle";
 
 const MyOrders = () => {
+  useTitle("Orders");
+
   const { user } = useContext(AuthContext);
   const { data, isLoading } = useQuery({
     queryKey: ["categories"],

@@ -3,8 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import SellersTableRow from "../../components/SellersTableRow";
 import { AuthContext } from "../../context/UserContext";
 import Spinner from "../../components/Spinner";
+import useTitle from "../../hooks/useTitle";
 
 const AllSellers = () => {
+  useTitle("Sellers");
+
   const { user } = useContext(AuthContext);
 
   const { data, isLoading, refetch } = useQuery({
