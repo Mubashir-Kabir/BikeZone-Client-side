@@ -1,53 +1,73 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Navigation, Autoplay } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/autoplay";
+import Slide from "./Slide";
+import Spinner from "./Spinner";
+import axios from "axios";
 
 const Slider = () => {
+  const [advertizedProducts, setAdvertizeProducts] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_serverUrl}/advertize`)
+      .then(function (response) {
+        // handle success
+        setAdvertizeProducts(response.data.data);
+        setIsLoading(false);
+        console.log(response.data.data);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
+  }, []);
+
+  // const { data, isLoading } = useQuery({
+  //   queryKey: ["advertize"],
+  //   queryFn: () =>
+  //     fetch(`${process.env.REACT_APP_serverUrl}/advertize`).then((res) =>
+  //       res.json()
+  //     ),
+  // });
+
+  // if (!isLoading) {
+  //   if (data?.status) {
+  //     advertizedProducts = data.data;
+  //     console.log(advertizedProducts);
+  //   }
+  // }
+
+  if (isLoading) {
+    return <Spinner></Spinner>;
+  }
+  if (!advertizedProducts?.length) {
+    return <></>;
+  }
+
   return (
-    <div className="carousel w-2/3 mx-auto my-10">
-      <div id="slide1" className="carousel-item relative w-full">
-        <img src="https://placeimg.com/800/200/arch" className="w-full" />
-        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-          <a href="#slide4" className="btn btn-circle">
-            ❮
-          </a>
-          <a href="#slide2" className="btn btn-circle">
-            ❯
-          </a>
-        </div>
-      </div>
-      <div id="slide2" className="carousel-item relative w-full">
-        <img src="https://placeimg.com/800/200/arch" className="w-full" />
-        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-          <a href="#slide1" className="btn btn-circle">
-            ❮
-          </a>
-          <a href="#slide3" className="btn btn-circle">
-            ❯
-          </a>
-        </div>
-      </div>
-      <div id="slide3" className="carousel-item relative w-full">
-        <img src="https://placeimg.com/800/200/arch" className="w-full" />
-        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-          <a href="#slide2" className="btn btn-circle">
-            ❮
-          </a>
-          <a href="#slide4" className="btn btn-circle">
-            ❯
-          </a>
-        </div>
-      </div>
-      <div id="slide4" className="carousel-item relative w-full">
-        <img src="https://placeimg.com/800/200/arch" className="w-full" />
-        <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-          <a href="#slide3" className="btn btn-circle">
-            ❮
-          </a>
-          <a href="#slide1" className="btn btn-circle">
-            ❯
-          </a>
-        </div>
-      </div>
-    </div>
+    <Swiper
+      modules={[Navigation, Autoplay]}
+      slidesPerView={1}
+      navigation
+      autoplay={true}
+    >
+      {advertizedProducts?.map((product) => {
+        if (product?.isSold) {
+          return "";
+        } else {
+          return (
+            <SwiperSlide key={product._id}>
+              <Slide product={product}></Slide>
+            </SwiperSlide>
+          );
+        }
+      })}
+    </Swiper>
   );
 };
 

@@ -22,7 +22,6 @@ const MyOrders = () => {
   if (!isLoading) {
     if (data?.status) {
       bookingProducts = data.data;
-      console.log(bookingProducts);
     }
   }
 

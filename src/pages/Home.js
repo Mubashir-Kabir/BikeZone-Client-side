@@ -10,7 +10,9 @@ const Home = () => {
   return (
     <div>
       <Banner></Banner>
-      <Slider></Slider>
+      <div className="mx-12">
+        <Slider></Slider>
+      </div>
       <HomeCategory></HomeCategory>
     </div>
   );
