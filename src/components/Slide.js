@@ -14,8 +14,11 @@ const Slide = ({ product }) => {
         <div className="max-w-md">
           <h1 className="mb-5 text-5xl font-bold">{product?.title}</h1>
           <p className="mb-5">{product?.info}</p>
-          <Link to="../dashboard" className="btn btn-primary">
-            Get Started
+          <Link
+            to={`../product/${product._id}`}
+            className="btn rounded-md btn-primary "
+          >
+            View Details
           </Link>
         </div>
       </div>

@@ -21,6 +21,9 @@ const Products = () => {
   return (
     <div>
       <div className="lg:mx-40 lg:my-10">
+        <h2 className="lg:my-10 mb-6 bg-white text-black px-2 py-3 rounded-md mx-3 text-2xl font-semibold">
+          All Bikes In this Category
+        </h2>
         <div className="grid gap-8">
           {items?.map((item) => (
             <ProductCard key={item._id} item={item}></ProductCard>

@@ -19,6 +19,7 @@ import AdminRoute from "../layout/AdminRoute";
 import SellerRoute from "../layout/SellerRoute";
 import BuyerRoute from "../layout/BuyerRoute";
 import ReportedProducts from "../pages/dashboard/ReportedProducts";
+import SingleProduct from "../pages/SingleProduct";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,20 @@ const router = createBrowserRouter([
         element: (
           <BuyerRoute>
             <Products></Products>
+          </BuyerRoute>
+        ),
+      },
+      {
+        path: "product/:id",
+        loader: ({ params }) =>
+          fetch(`${process.env.REACT_APP_serverUrl}/product?id=${params.id}`, {
+            headers: {
+              authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }),
+        element: (
+          <BuyerRoute>
+            <SingleProduct></SingleProduct>
           </BuyerRoute>
         ),
       },

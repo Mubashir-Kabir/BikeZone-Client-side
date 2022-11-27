@@ -19,11 +19,21 @@ const ProductCard = ({ item }) => {
     isSold,
     postTime,
   } = item;
+  const timeFormate = new Intl.DateTimeFormat("default", {
+    hour: "numeric",
+    minute: "numeric",
+  });
+  const dateFormate = new Intl.DateTimeFormat("default", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+
   const { user: currentUser } = useContext(AuthContext);
 
   const handleReport = () => {
     const permission = window.confirm(
-      "Are you sure you want to Verify the user?"
+      "Are you sure you want to Report this item?"
     );
     if (permission) {
       fetch(`${process.env.REACT_APP_serverUrl}/report/${item?._id}`, {
@@ -63,22 +73,22 @@ const ProductCard = ({ item }) => {
 
   return (
     <div className="card lg:card-side bg-base-100 shadow-xl">
-      <figure className="lg:w-2/3 ">
+      <figure className="lg:w-1/2 ">
         <img src={img} alt="Album" />
       </figure>
-      <div className="card-body">
+      <div className="card-body lg:w-1/2">
         <h2 className="text-center text-3xl font-semibold">{title}</h2>
         <p className="text-left mb-3">{info}</p>
-        <div className="flex flex-wrap gap-4 text-left">
+        <div className=" gap-4 text-left">
           <p>
             <span className="font-bold text-white text-md">
               Original Price:
             </span>{" "}
-            ${price.original}
+            ${price?.original}
           </p>
           <p>
             <span className="font-bold text-white text-md">Resale Price: </span>
-            ${price.resale}
+            ${price?.resale}
           </p>
           <p>
             <span className="font-bold text-white text-md">Condition: </span>{" "}
@@ -115,11 +125,19 @@ const ProductCard = ({ item }) => {
                     <></>
                   )}
                 </h4>
-                <span className="text-xs text-gray-600">
-                  {" "}
-                  {(postTime + "")?.split("T")[0]}
-                </span>
-                <p className="text-xs text-gray-600">{number}</p>
+                <p>
+                  Posted:
+                  <span className="text-xs text-gray-500 mx-2">
+                    {timeFormate.format(new Date(postTime))}
+                  </span>
+                  <span className="text-xs text-gray-500">
+                    {dateFormate.format(new Date(postTime))}
+                  </span>
+                </p>
+                <p>
+                  Contact:
+                  <span className="text-xs text-gray-500 mx-2">{number}</span>
+                </p>
               </div>
             </div>
           </div>
