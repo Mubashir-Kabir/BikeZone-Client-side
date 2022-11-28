@@ -9,7 +9,7 @@ import { notifyError, notifyWarn } from "../utilities/sharedFunctions";
 const AdminRoute = ({ children }) => {
   const { user, loading, auth } = useContext(AuthContext);
   const location = useLocation();
-  const [isAdmin, isAdminLoading] = useAdmin(user.email);
+  const [isAdmin, isAdminLoading] = useAdmin(user?.email);
 
   const logOut = () => {
     signOut(auth)

@@ -17,9 +17,10 @@ const Slider = () => {
       .get(`${process.env.REACT_APP_serverUrl}/advertize`)
       .then(function (response) {
         // handle success
-        setAdvertizeProducts(response.data.data);
+        if (response.data.status) {
+          setAdvertizeProducts(response?.data?.data);
+        }
         setIsLoading(false);
-        console.log(response.data.data);
       })
       .catch(function (error) {
         // handle error

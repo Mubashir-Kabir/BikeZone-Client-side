@@ -11,7 +11,13 @@ const useSeller = (email) => {
           console.log(data);
           setIsSeller(data.status);
           setIsSellerLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsSellerLoading(false);
         });
+    } else {
+      setIsSellerLoading(false);
     }
   }, [email]);
   return [isSeller, isSellerLoading];

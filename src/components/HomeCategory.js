@@ -5,9 +5,11 @@ import Spinner from "./Spinner";
 
 const HomeCategory = () => {
   const { data, isLoading } = useQuery({
-    queryKey: ["categories"],
+    queryKey: ["category"],
     queryFn: () =>
-      fetch("http://localhost:5001/categories").then((res) => res.json()),
+      fetch(`${process.env.REACT_APP_serverUrl}/categories`).then((res) =>
+        res.json()
+      ),
   });
   let categories = [];
   if (!isLoading) {

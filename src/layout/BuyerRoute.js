@@ -9,8 +9,8 @@ import { notifyWarn } from "../utilities/sharedFunctions";
 const BuyerRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
   const location = useLocation();
-  const [isSeller, isSellerLoading] = useSeller(user.email);
-  const [isAdmin, isAdminLoading] = useAdmin(user.email);
+  const [isSeller, isSellerLoading] = useSeller(user?.email);
+  const [isAdmin, isAdminLoading] = useAdmin(user?.email);
 
   const buyerHandle = () => {
     notifyWarn("Please Use a buyer account");
