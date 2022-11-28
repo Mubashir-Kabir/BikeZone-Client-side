@@ -54,16 +54,16 @@ const ProductCard = ({ item }) => {
   };
 
   const { data, isLoading } = useQuery({
-    queryKey: ["seller"],
+    queryKey: [seller],
     queryFn: () =>
       fetch(`${process.env.REACT_APP_serverUrl}/users?email=${seller}`).then(
         (res) => res.json()
       ),
   });
-  let user = [];
+  let postedBy = [];
   if (!isLoading) {
     if (data?.status) {
-      user = data.data;
+      postedBy = data.data;
     }
   }
 
@@ -111,15 +111,15 @@ const ProductCard = ({ item }) => {
             <div className="flex space-x-4">
               <div>
                 <img
-                  src={user.img}
+                  src={postedBy?.img}
                   alt=""
                   className="object-cover w-12 h-12 rounded-full bg-gray-500"
                 />
               </div>
               <div className="text-left">
                 <h4 className="font-bold flex items-center">
-                  {user.name}{" "}
-                  {user?.verified ? (
+                  {postedBy?.name}{" "}
+                  {postedBy?.verified ? (
                     <GoVerified className="ml-2 text-cyan-600"></GoVerified>
                   ) : (
                     <></>

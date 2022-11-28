@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+# Bike Zone
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description:
 
-## Available Scripts
+This web-site is focuses on resale old bikes.There are buyer and seller user role. Buyer can see all the bikes added by different sellers.book any bikes and after booking they can buy them through payment.buyers can also report any product. If any user wants to sell his/her old bike, the can use seller account for post their bikes for sell. Sellers can also advertize their bikes on home page. Admin can see all buyers and sellers, and can mange them verify any seller. he can also delete any seller or buyer account if admin wants.
 
-In the project directory, you can run:
+## Live Site:
 
-### `npm start`
+You can visit this site at: https://bike-zone-708de.web.app/
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Admin Route Access:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+adminEmail: admin@bikezone.com
+adminPassword: admin@123
 
-### `npm test`
+## Features:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<ul>
+    <li>Single page react application</li>
+    <li>Seller, buyer and admin role</li>
+    <li>Firebase authentication</li>
+    <li>Stripe payment method</li>
+    <li>React router for routing</li>
+    <li>Fully responsive</li>
+    <li>Secured API call </li>
+    <li>Dynamic dashboard panel based on buyer, seller or admin</li>
+    <li>Sorted the products by last posted time </li>
+</ul>
 
-### `npm run build`
+## Tech Stack:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The site is created with [React](https://reactjs.org/).\
+CSS framework: [Tailwind](https://tailwindcss.com/).\
+Component Library: [daisyUI](https://daisyui.com/)\
+Authentication: [Firebase](https://firebase.google.com/).\
+Payment Method: [Stripe](https://stripe.com/).\
+[React Router](https://reactrouter.com/en/main),
+[React Toastify](https://www.npmjs.com/package/react-toastify),
+[React Icons](https://react-icons.github.io/react-icons/),
+[tanstack query](https://tanstack.com/query/v4),
+[axios](https://axios-http.com/docs/intro),
+are also used is this project.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Future Scope:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<ul>
+    <li>Paginating where applicable</li>
+    <li>Edit profile of users</li>
+    <li>Edit sellers post</li>
+    <li>Better UI/UX</li>
+    
+</ul>

@@ -10,10 +10,11 @@ const useAdmin = (email) => {
         .then((data) => {
           console.log(data);
           setIsAdmin(data.status);
-          setIsAdminLoading(false).catch((err) => {
-            console.log(err);
-            setIsAdminLoading(false);
-          });
+          setIsAdminLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsAdminLoading(false);
         });
     } else {
       setIsAdminLoading(false);
