@@ -2,8 +2,9 @@ import BookingModal from "./BookingModal";
 import { useQuery } from "@tanstack/react-query";
 import { GoVerified } from "react-icons/go";
 import { notifyError, notifySuccess } from "../utilities/sharedFunctions";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../context/UserContext";
+// import { useFetcher } from "react-router-dom";
 
 const ProductCard = ({ item }) => {
   const {
@@ -19,6 +20,15 @@ const ProductCard = ({ item }) => {
     isSold,
     postTime,
   } = item;
+
+  // //testing
+  // const fetcher = useFetcher();
+  // useEffect(() => {
+  //   fetcher.load("/some/route");
+  // }, [fetcher]);
+  // //testing
+  const [isReported, setIsReported] = useState(item?.reported);
+
   const timeFormate = new Intl.DateTimeFormat("default", {
     hour: "numeric",
     minute: "numeric",
@@ -46,7 +56,9 @@ const ProductCard = ({ item }) => {
         .then((res) => res.json())
         .then((data) => {
           if (data.status) {
-            return notifySuccess("Reported Successfully");
+            setIsReported(true);
+            notifySuccess("Reported Successfully");
+            return;
           }
           return notifyError("Something went wrong please try again");
         });
@@ -143,7 +155,7 @@ const ProductCard = ({ item }) => {
           </div>
         )}
         <div className="flex justify-end gap-3">
-          {item?.reported ? (
+          {isReported ? (
             <button disabled className="btn btn-error">
               Already Report
             </button>
