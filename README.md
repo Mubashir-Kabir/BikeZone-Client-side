@@ -10,7 +10,7 @@ You can visit this site at: https://bike-zone-708de.web.app/
 
 ## Admin Route Access:
 
-adminEmail: admin@bikezone.com
+adminEmail: admin@bikezone.com\
 adminPassword: admin@123
 
 ## Features:
